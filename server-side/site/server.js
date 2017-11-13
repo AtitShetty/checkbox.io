@@ -6,7 +6,11 @@ var express = require('express'),
 	//upload = require('./routes/upload.js'),
 	create = require('./routes/create.js'),
 	study = require('./routes/study.js'),
+	redis = require('redis'),
 	admin = require('./routes/admin.js');
+
+var client = redis.createClient(6379, '127.0.0.1', {})
+client.auth('abcde');
 
 var app = express();
 
@@ -53,7 +57,16 @@ app.get('/api/study/status/:id', study.status );
 
 app.get('/api/study/listing', study.listing );
 
-app.post('/api/study/create', create.createStudy );
+app.post('/api/study/create', function(req, res) {
+	client.exists("feature_flag", function(err, value) {
+		if (value == 1) {
+			create.createStudy(req, res);
+		}
+		else {
+			res.send({'error':'This feature has been disabled by feature flag'});
+		}
+	});
+});
 app.post('/api/study/vote/submit/', cors(corsOptions), study.submitVote );
 
 //// ADMIN ROUTES
