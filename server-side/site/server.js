@@ -9,8 +9,8 @@ var express = require('express'),
 	redis = require('redis'),
 	admin = require('./routes/admin.js');
 
-var client = redis.createClient(6379, '127.0.0.1', {})
-client.auth('abcde');
+// var client = redis.createClient(6379, '127.0.0.1', {})
+// client.auth('abcde');
 
 var app = express();
 
