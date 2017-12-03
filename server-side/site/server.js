@@ -14,6 +14,8 @@ client.auth('abcde');
 
 var app = express();
 
+var time_delay = 1;
+
 app.configure(function () {
     app.use(express.logger('dev'));     /* 'default', 'short', 'tiny', 'dev' */
     app.use(express.bodyParser());
@@ -26,6 +28,18 @@ var corsOptions = {
     callback(null, originIsWhitelisted);
   }
 };
+
+app.get('/api/test_simulation1', function(req, res){
+	res.status(200).send({'message': "Test Message from node 2 for simulation 1"});
+	res.end();
+});
+app.get('/api/test_simulation2', function (req, res){
+	function f1() {
+		res.send({'error': "Test Message from node 2 for simulation 2"});
+	}
+
+	f1();
+});
 
 app.options('/api/study/vote/submit/', cors(corsOptions));
 
