@@ -14,6 +14,8 @@ client.auth('abcde');
 
 var app = express();
 
+var time_delay = 1;
+
 app.configure(function () {
     app.use(express.logger('dev'));     /* 'default', 'short', 'tiny', 'dev' */
     app.use(express.bodyParser());
@@ -46,7 +48,10 @@ app.get('/test_simulation2', function (req, res){
 
 	client.exists("simulation_flag", function(err, value) {
 		if (value == 1) {
-			setTimeout(f1, 3000);
+			if (time_delay < 3000) {
+				time_delay += 100;
+			}
+			setTimeout(f1, time_delay);
 		}
 		else {
 			f1();
