@@ -28,14 +28,14 @@ var corsOptions = {
 };
 
 app.get('/test_simulation1', function(req, res){
-	res.send({'error': "Test Message for simulation 1"});
+	res.status(500).send({'error': "Test Message for simulation 1"});
 	res.end();
 });
 app.get('/test_simulation2', function (req, res){
-	function f1(res) {
+	function f1() {
 		res.send({'error': "Test Message for simulation 2"});
 	}
-	setTimeout(f1(res), 3000);
+	setTimeout(f1, 3000);
 });
 
 app.options('/api/study/vote/submit/', cors(corsOptions));
