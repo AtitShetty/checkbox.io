@@ -43,7 +43,7 @@ app.get('/api/test_simulation1', function(req, res){
 });
 app.get('/api/test_simulation2', function (req, res){
 	function f1() {
-		res.send({'error': "Test Message for simulation 2"});
+		res.status(200).send({'error': "Test Message for simulation 2"});
 		res.end();
 	}
 
