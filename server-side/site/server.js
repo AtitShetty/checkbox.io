@@ -28,14 +28,30 @@ var corsOptions = {
 };
 
 app.get('/test_simulation1', function(req, res){
-	res.status(500).send({'error': "Test Message for simulation 1"});
-	res.end();
+	client.exists("simulation_flag", function(err, value) {
+		if (value == 1) {
+			res.status(500).send({'message': "Test Message for simulation 1"});
+			res.end();
+		}
+		else {
+			res.status(200).send({'message': "Test Message for simulation 1"});
+			res.end();
+		}
+	});
 });
 app.get('/test_simulation2', function (req, res){
 	function f1() {
 		res.send({'error': "Test Message for simulation 2"});
 	}
-	setTimeout(f1, 3000);
+
+	client.exists("simulation_flag", function(err, value) {
+		if (value == 1) {
+			setTimeout(f1, 3000);
+		}
+		else {
+			f1();
+		}
+	});
 });
 
 app.options('/api/study/vote/submit/', cors(corsOptions));
