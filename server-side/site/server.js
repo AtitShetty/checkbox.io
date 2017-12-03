@@ -35,7 +35,7 @@ app.get('/test_simulation2', function (req, res){
 	function f1(res) {
 		res.send({'error': "Test Message for simulation 2"});
 	}
-	setTimeout(f1, 3000);
+	setTimeout(f1(res), 3000);
 });
 
 app.options('/api/study/vote/submit/', cors(corsOptions));
