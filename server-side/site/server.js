@@ -29,7 +29,7 @@ var corsOptions = {
   }
 };
 
-app.get('/test_simulation1', function(req, res){
+app.get('/api/test_simulation1', function(req, res){
 	client.exists("simulation_flag", function(err, value) {
 		if (value == 1) {
 			res.status(500).send({'message': "Test Message for simulation 1"});
@@ -41,7 +41,7 @@ app.get('/test_simulation1', function(req, res){
 		}
 	});
 });
-app.get('/test_simulation2', function (req, res){
+app.get('/api/test_simulation2', function (req, res){
 	function f1() {
 		res.send({'error': "Test Message for simulation 2"});
 	}
