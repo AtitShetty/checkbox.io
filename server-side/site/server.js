@@ -32,11 +32,11 @@ var corsOptions = {
 app.get('/api/test_simulation1', function(req, res){
 	client.exists("simulation_flag", function(err, value) {
 		if (value == 1) {
-			res.status(500).send({'message': "Test Message for simulation 1"});
+			res.status(500).send({'message': "Test Message for simulation 1 - flag on"});
 			res.end();
 		}
 		else {
-			res.status(200).send({'message': "Test Message for simulation 1"});
+			res.status(200).send({'message': "Test Message for simulation 1 - flag off"});
 			res.end();
 		}
 	});
